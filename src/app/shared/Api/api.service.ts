@@ -23,7 +23,11 @@ export class ApiService {
     }).pipe(
       catchError(err => {
         return this.errMsg.heanderError(err);
-      }))
+      }),
+      tap(res=>{
+        this.authenticatedUser(res.email,res.localId,res.idToken,+res.expiresIn)
+      })
+      )
   }
   signIn(email: any, password: any) {
     return this.http.post<AuthResponce>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + config.Api_key, {
@@ -33,14 +37,16 @@ export class ApiService {
     }).pipe(
       catchError(err => {
         return this.errMsg.heanderError(err);
+      }),
+      tap(res=>{
+        this.authenticatedUser(res.email,res.localId,res.idToken,+res.expiresIn)
       }))
   }
 
-  //  authenticatedUser(email: any, userId: any, token: any, expiresIn: any) {
-  //   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-  //   const user = new User(email, userId, token, expirationDate)
-
-  //   this.user.next(user)
-  // }
-
+private authenticatedUser(email: string, userId: string, token: string, expiresIn: number){
+  const expirationDate= new Date(new Date().getTime() + expiresIn*1000);
+  const user=new User(email,userId,token,expirationDate)
+console.log('user',user)
+  this.user.next(user)
+}
 }
