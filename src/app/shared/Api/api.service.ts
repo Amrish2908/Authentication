@@ -27,6 +27,7 @@ export class ApiService {
       tap(res=>{
         this.authenticatedUser(res.email,res.localId,res.idToken,+res.expiresIn)
       })
+      
       )
   }
   signIn(email: any, password: any) {
