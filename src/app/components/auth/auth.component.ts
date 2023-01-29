@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthResponce } from 'src/app/appInterface/auth-responce.interface';
 import { ApiService } from 'src/app/shared/Api/api.service';
@@ -17,7 +18,7 @@ export class AuthComponent implements OnInit {
   error: any;
   errMsgs:any
   
-  constructor(private fb: FormBuilder, private api: ApiService,private errorMsgserv:ErrorService) { 
+  constructor(private fb: FormBuilder, private api: ApiService,private errorMsgserv:ErrorService,private router:Router) { 
     this.errMsgs=this.errorMsgserv.errorMsgs
   }
   
@@ -39,8 +40,10 @@ export class AuthComponent implements OnInit {
       } else {
         authObservable = this.api.signUp(email, password)
       }
-      authObservable.subscribe(res => {
+      authObservable.subscribe(
+        res => {
         console.log(res)
+          this.router.navigate(['dashboard'])
       },
         err => {
           console.log(err)

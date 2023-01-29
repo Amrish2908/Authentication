@@ -8,14 +8,18 @@ import { AuthComponent } from './components/auth/auth.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HeaderComponent } from './components/header/header.component'; 
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    HomeComponent
+    HomeComponent,
+    DashboardComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
